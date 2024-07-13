@@ -12,7 +12,9 @@
         .hide {
             display: none;
         }
-
+        .convo{
+            border:1px solid #ddd;
+        }
         .user{
             cursor: pointer;
         }
@@ -33,6 +35,34 @@
             color:black !important;
             border-radius: 15px 15px 15px 0px !important;
         }
+        .chat-style{
+            height: 71.8vh;
+            overflow-y: auto;
+        }
+
+/* Customize scrollbar for webkit browsers (Chrome, Safari) */
+.chat-style::-webkit-scrollbar {
+    width: 2px !important; /* Adjust the width to make it slim */
+}
+
+.chat-style::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background color of the track */
+}
+
+.chat-style::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar handle */
+    border-radius: 22px; /* Optional: round corners */
+}
+
+.chat-style::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color when hovered */
+}
+
+/* Customize scrollbar for Firefox */
+.chat-style {
+    scrollbar-width: thin; /* Make the scrollbar slim */
+    scrollbar-color: #ddd #fff; /* Handle color, track color */
+}
         .scroll {
         flex: 1;
         overflow-y: auto;
@@ -57,7 +87,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-
+                <h5>Disting Disting</h5>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -162,7 +192,7 @@
 <div class="container">
 <div class="row clearfix">
     <div class="col-lg-12">
-        <div class="card chat-app">
+        <div class="card chat-app" style="border:none; box-shadow:none;">
             <div id="plist" class="people-list">
                 <div class="input-group">
                     Tap to chat
@@ -171,34 +201,38 @@
                     </div>
                     <input type="text" class="form-control" placeholder="Search..."> --}}
                 </div>
-                <ul class="list-unstyled chat-list mt-2 mb-0">
-                    @foreach ($users as  $data)
-                    <li class="clearfix user {{ $data->gender == 'female' ? 'female' : '' }} " data-id="{{ $data->id }}" data-country="{{ $data->country }}" data-age="{{ $data->age }}" data-gender="{{ $data->gender }}" >
-                        <div class="about d-flex align-items-baseline">
-                            <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
-                                @if($data->gender == 'male')
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M289.8 46.8c3.7-9 12.5-14.8 22.2-14.8H424c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L321 204.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176S0 401.2 0 304s78.8-176 176-176c37 0 71.4 11.4 99.8 31l52.6-52.6L295 73c-6.9-6.9-8.9-17.2-5.2-26.2zM400 80l0 0h0v0zM176 416a112 112 0 1 0 0-224 112 112 0 1 0 0 224z"/></svg>
-                                @else
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style=" fill: #f77d92;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/></svg>
-                                @endif
-                            </i></div>
-                            <div class="name">{{ $data->name }}</div>
-                            {{-- <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div> --}}
-                        </div>
-                    </li>
-                    @endforeach
-{{--
-                    <li class="clearfix user female" data-id="{{ $data->id }}" style="" >
-                        <div class="about d-flex align-items-baseline">
-                            <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
+                <div class="chat-style">
 
-                            </i></div>
-                            <div class="name">{{ $data->name }}</div>
 
-                        </div>
-                    </li> --}}
+                    <ul class="list-unstyled chat-list mt-2 mb-0" >
+                        @foreach ($users as  $data)
+                        <li class="clearfix user {{ $data->gender == 'female' ? 'female' : '' }} " data-id="{{ $data->id }}" data-country="{{ $data->country }}" data-age="{{ $data->age }}" data-gender="{{ $data->gender }}" >
+                            <div class="about d-flex align-items-baseline">
+                                <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
+                                    @if($data->gender == 'male')
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M289.8 46.8c3.7-9 12.5-14.8 22.2-14.8H424c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L321 204.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176S0 401.2 0 304s78.8-176 176-176c37 0 71.4 11.4 99.8 31l52.6-52.6L295 73c-6.9-6.9-8.9-17.2-5.2-26.2zM400 80l0 0h0v0zM176 416a112 112 0 1 0 0-224 112 112 0 1 0 0 224z"/></svg>
+                                    @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style=" fill: #f77d92;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/></svg>
+                                    @endif
+                                </i></div>
+                                <div class="name">{{ $data->name }}</div>
+                                {{-- <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div> --}}
+                            </div>
+                        </li>
+                        @endforeach
 
-                </ul>
+                    {{-- <li class="clearfix user female" data-id="{{ $data->id }}" style="" >
+                            <div class="about d-flex align-items-baseline">
+                                <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
+
+                                </i></div>
+                                <div class="name">{{ $data->name }}</div>
+
+                            </div>
+                        </li> --}}
+
+                    </ul>
+                </div>
             </div>
             <div class="chat ">
                 <div class=" convo hide">
@@ -247,20 +281,26 @@
                             <button class="btn btn-primary" type="button"> Send</button>
                         </div>
                     </div> --}}
-                    <div id="chat-interface" class="d-flex flex-column" style="height: 100vh;">
+                    <div id="chat-interface" class="d-flex flex-column" style="height: 68vh;">
                         <div id="message-container" class="flex-1 overflow-y-auto"></div>
                         <div class="chat-message clearfix">
-                            <form id="message-form" action="{{ route('chat.store') }}" method="post" class="mt-4">
-                                @csrf
-                            <div class="input-group mb-0">
-                                    <input type="hidden" name="receiver_id" id="receiver_id">
+                            <div style="bottom: 0; position: absolute;width: 73%;">
 
-                                    <input type="text" name="message" class="form-control" placeholder="Enter text here...">
-                                    <button class="btn btn-primary" type="submit"> Send</button>
-                                </div>
-                            </form>
+
+
+                                <form id="message-form" action="{{ route('chat.store') }}" method="post" class="mt-4">
+                                    @csrf
+                                <div class="input-group mb-0">
+                                        <input type="hidden" name="receiver_id" id="receiver_id">
+
+                                        <input type="text" name="message" class="form-control" placeholder="Enter text here...">
+                                        <button class="btn btn-primary" type="submit"> Send</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -429,8 +469,15 @@
                 url: `/get/count`,
                 type: 'GET',
                 success: function(count) {
+                    if(count == 0){
+                        $('.count').text('');
+
+                    }else{
+                        $('.count').text(count);
+                    }
                     if (count > lastCount) {
                         lastCount = count;
+
                         // Fetch the latest messages for the selected user
                         let receiverId = $('#receiver_id').val();
                         if (receiverId) {

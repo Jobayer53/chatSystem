@@ -11,7 +11,7 @@ class MessageController extends Controller
 {
     public function index(){
 
-        $users = User::where('id', '!=', Auth::User()->id)->get();
+        $users = User::where('id', '!=', Auth::User()->id)->orderByRaw('country = ? DESC', [Auth::user()->country])->get();
         return view('chat',[
             'users' => $users,
         ]);
@@ -42,7 +42,7 @@ class MessageController extends Controller
             })
             ->orderBy('created_at', 'asc')
             ->get();
-
+            
         return $messages;
     }
 
