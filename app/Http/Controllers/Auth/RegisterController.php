@@ -21,14 +21,18 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    // use RegistersUsers;
 
+    public function showRegistrationForm()
+    {
+        return redirect('/');
+    }
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/disting-disting';
 
     /**
      * Create a new controller instance.

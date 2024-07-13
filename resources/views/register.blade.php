@@ -29,24 +29,10 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Age') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
                                 <div class="col-md-6">
-                                    <input id="Age" type="number" class="form-control @error('Age') is-invalid @enderror" name="age" value="{{ old('email') }}" required autocomplete="email">
-                                    @error('Age')
-
-                                            <strong>{{ $message }}</strong>
-
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="" class="col-md-4 col-form-label text-md-end">{{ __('Gender') }}</label>
-                                <div class="col-md-6">
-                                   <select name="gender" id="gender" class="form-control">
-                                       <option value="male" >Male</option>
-                                       <option value="female">Female</option>
-                                   </select>
-                                    @error('gender')
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -54,12 +40,20 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="" class="col-md-4 col-form-label text-md-end">{{ __('Country') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
                                 <div class="col-md-6">
-                                <select name="country" id="country" class="form-control">
-                                   <option value="bangladesh">Bangladesh</option>
-                                   <option value="india">India</option>
-                                </select>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
                             <div class="row mb-0">

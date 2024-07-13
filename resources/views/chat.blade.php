@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <style>
         .hide {
             display: none;
@@ -17,6 +18,20 @@
         }
         .cross{
             cursor: pointer;
+        }
+        .female{
+            background-color: #ffe9ed;
+        }
+        .female:hover{
+            background-color: #f7c4d5 !important ;
+        }
+        #plist{
+            border:1px solid #ddd;
+        }
+        .left-message{
+            background-color: #ddd !important;
+            color:black !important;
+            border-radius: 15px 15px 15px 0px !important;
         }
         .scroll {
         flex: 1;
@@ -36,7 +51,7 @@
     </style>
 </head>
 
-    <title>Document</title>
+    <title>Disting Disting</title>
 </head>
 <body>
     <div id="app">
@@ -95,7 +110,7 @@
             </div>
         </nav>
     </div>
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-2">
@@ -109,7 +124,7 @@
                     <div class="card convo hide">
                         <div class="card-header">
                             <h5 class="name"></h5>
-                            <span class="float-end cross">X</span>
+
                         </div>
                         <div class="card-body">
                             <div class="flex flex-col  ">
@@ -142,9 +157,117 @@
             </div>
 
         </div>
+    </div> --}}
+
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list">
+                <div class="input-group">
+                    Tap to chat
+                    {{-- <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search..."> --}}
+                </div>
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    @foreach ($users as  $data)
+                    <li class="clearfix user {{ $data->gender == 'female' ? 'female' : '' }} " data-id="{{ $data->id }}" data-country="{{ $data->country }}" data-age="{{ $data->age }}" data-gender="{{ $data->gender }}" >
+                        <div class="about d-flex align-items-baseline">
+                            <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
+                                @if($data->gender == 'male')
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M289.8 46.8c3.7-9 12.5-14.8 22.2-14.8H424c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L321 204.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176S0 401.2 0 304s78.8-176 176-176c37 0 71.4 11.4 99.8 31l52.6-52.6L295 73c-6.9-6.9-8.9-17.2-5.2-26.2zM400 80l0 0h0v0zM176 416a112 112 0 1 0 0-224 112 112 0 1 0 0 224z"/></svg>
+                                @else
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style=" fill: #f77d92;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/></svg>
+                                @endif
+                            </i></div>
+                            <div class="name">{{ $data->name }}</div>
+                            {{-- <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div> --}}
+                        </div>
+                    </li>
+                    @endforeach
+{{--
+                    <li class="clearfix user female" data-id="{{ $data->id }}" style="" >
+                        <div class="about d-flex align-items-baseline">
+                            <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
+
+                            </i></div>
+                            <div class="name">{{ $data->name }}</div>
+
+                        </div>
+                    </li> --}}
+
+                </ul>
+            </div>
+            <div class="chat ">
+                <div class=" convo hide">
+                    <div class="chat-header clearfix ">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="d-flex" style="padding-left: 10px;">
+
+                                    <h5 class="m-b-0 username"> </h5>
+                                    <span class="svg"></span>
+                                </div>
+                                <div class="chat-about">
+                                    <span id="age"  style="font-size:13px;"></span>,
+                                    <span id="country" style="font-size:13px;"></span>
+                                    <small></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 hidden-sm text-right">
+                                <span class="float-end cross">
+                                    <i style="display: inherit;height: 20px; width: 20px;margin-top: 9px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="chat-history">
+                        <ul class="m-b-0">
+                            <li class="clearfix" >
+                                <div class="message other-message float-right" style="max-width:60%;"> Hi Aiden, how are you? How is the project coming along? Hi Aiden, how are you? How is the project coming along? </div>
+                            </li>
+
+                            <li class="clearfix">
+
+                                <div class="message my-message left-message" style="width:60%;">Project has been already finished and I have results to show you.</div>
+                            </li>
+                            <li class="clearfix">
+
+                                <div class="message other-message float-right" style="max-width:60%;"> Hi Aiden, how are you?  </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chat-message clearfix">
+                        <div class="input-group mb-0">
+                            <input type="text" class="form-control" placeholder="Enter text here...">
+                            <button class="btn btn-primary" type="button"> Send</button>
+                        </div>
+                    </div> --}}
+                    <div id="chat-interface" class="d-flex flex-column" style="height: 100vh;">
+                        <div id="message-container" class="flex-1 overflow-y-auto"></div>
+                        <div class="chat-message clearfix">
+                            <form id="message-form" action="{{ route('chat.store') }}" method="post" class="mt-4">
+                                @csrf
+                            <div class="input-group mb-0">
+                                    <input type="hidden" name="receiver_id" id="receiver_id">
+
+                                    <input type="text" name="message" class="form-control" placeholder="Enter text here...">
+                                    <button class="btn btn-primary" type="submit"> Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-
+</div>
+</div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
@@ -153,14 +276,24 @@
 <script>
      let name ='' ;
      let auth = '{{ Auth::user()->id }}';
-
+    let femalesvg = '<i style="height: 13px; width: 13px; display:inherit; margin-left:5px;"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style=" fill: #f77d92;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/></svg></i>';
+    let malesvg  = '<i style="height: 13px; width: 13px; display:inherit;margin-left:5px;"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M289.8 46.8c3.7-9 12.5-14.8 22.2-14.8H424c13.3 0 24 10.7 24 24V168c0 9.7-5.8 18.5-14.8 22.2s-19.3 1.7-26.2-5.2l-33.4-33.4L321 204.2c19.5 28.4 31 62.7 31 99.8c0 97.2-78.8 176-176 176S0 401.2 0 304s78.8-176 176-176c37 0 71.4 11.4 99.8 31l52.6-52.6L295 73c-6.9-6.9-8.9-17.2-5.2-26.2zM400 80l0 0h0v0zM176 416a112 112 0 1 0 0-224 112 112 0 1 0 0 224z"/></svg></i>';
     $(document).ready(function() {
         $(document).on('click', '.user', function() {
             $('.convo').removeClass('hide');
              name = $(this).text().trim();
-
+            let age = $(this).data('age');
+            let country = $(this).data('country');
+            let gender = $(this).data('gender');
+            $('#age').text('Age ' + age);
+            $('#country').text(country.toUpperCase());
+            if(gender == 'male') {
+                $('.svg').html(malesvg);
+            } else {
+                $('.svg').html(femalesvg);
+            }
             let id = $(this).data('id');
-            $('.name').text(name);
+            $('.username').text(name);
             $('#receiver_id').val(id);
 
             $.ajax({
@@ -170,6 +303,7 @@
                 success: function(response) {
                    console.log(response);
                    displayMessages(response);
+                   $('#age').val(response.age);
 
                 }
 
@@ -177,34 +311,58 @@
             });
         });
 
+        // function displayMessages(response) {
+        //     let messageContainer = $('#message-container');
+        //     messageContainer.empty(); // Clear previous messages
+
+        //     response.forEach(function(item) {
+        //         let messageDiv = $('<div></div>').addClass('flex items-center');
+        //         let messageContent = `
+        //             <div class="flex flex-col
+        //              `+ (item.sender_id == auth ? 'float-end' : '')  +`">
+        //              <span class="font-bold name
+
+        //              ">
+        //              `+
+        //              (item.sender_id == auth ? 'You' : name)
+        //              + `
+
+        //              :
+        //                     </span> <!-- Replace with actual user name if available -->
+        //                 <span class="message
+
+        //                 ">${item.message}</span>
+        //             </div>
+        //             <br>
+        //         `;
+        //         messageDiv.html(messageContent);
+        //         messageContainer.append(messageDiv);
+        //     });
+        // }
         function displayMessages(response) {
-            let messageContainer = $('#message-container');
-            messageContainer.empty(); // Clear previous messages
+    let messageContainer = $('#message-container');
+    messageContainer.empty(); // Clear previous messages
 
-            response.forEach(function(item) {
-                let messageDiv = $('<div></div>').addClass('flex items-center');
-                let messageContent = `
-                    <div class="flex flex-col
-                     `+ (item.sender_id == auth ? 'float-end' : '')  +`">
-                     <span class="font-bold name
+    let chatHistory = $('<div></div>').addClass('chat-history');
+    let chatList = $('<ul></ul>').addClass('m-b-0');
 
-                     ">
-                     `+
-                     (item.sender_id == auth ? 'You' : name)
-                     + `
+    response.forEach(function(item) {
+        let chatItem = $('<li></li>').addClass('clearfix');
+        let messageDiv = $('<div></div>').addClass('message');
 
-                     :
-                            </span> <!-- Replace with actual user name if available -->
-                        <span class="message
-
-                        ">${item.message}</span>
-                    </div>
-                    <br>
-                `;
-                messageDiv.html(messageContent);
-                messageContainer.append(messageDiv);
-            });
+        if (item.sender_id == auth) {
+            messageDiv.addClass('other-message float-right').css('max-width', '60%').text(item.message);
+        } else {
+            messageDiv.addClass('my-message left-message').css('max-width', '60%').text(item.message);
         }
+
+        chatItem.append(messageDiv);
+        chatList.append(chatItem);
+    });
+
+    chatHistory.append(chatList);
+    messageContainer.append(chatHistory);
+}
         $(document).on('click', '.cross', function() {
             $('.convo').addClass('hide');
         });
@@ -224,23 +382,29 @@
 
     // Function to display messages
     function displayMessages(messages) {
-        let messageContainer = $('#message-container');
-        messageContainer.empty(); // Clear previous messages
+ let messageContainer = $('#message-container');
+    messageContainer.empty(); // Clear previous messages
 
-        messages.forEach(function(item) {
-            let messageDiv = $('<div></div>').addClass('flex items-center');
-            let messageContent = `
-                <div class="flex flex-col ${item.sender_id == auth ? 'float-end' : ''}">
-                    <span class="font-bold name">
-                        ${item.sender_id == auth ? 'You' : name}:
-                    </span>
-                    <span class="message">${item.message}</span>
-                </div>
-                <br>
-            `;
-            messageDiv.html(messageContent);
-            messageContainer.append(messageDiv);
-        });
+    let chatHistory = $('<div></div>').addClass('chat-history');
+    let chatList = $('<ul></ul>').addClass('m-b-0');
+
+    messages.forEach(function(item) {
+        let chatItem = $('<li></li>').addClass('clearfix');
+        let messageDiv = $('<div></div>').addClass('message');
+
+        if (item.sender_id == auth) {
+            messageDiv.addClass('other-message float-right').css('max-width', '60%').text(item.message);
+        } else {
+            messageDiv.addClass('my-message left-message').css('max-width', '60%').text(item.message);
+        }
+
+        chatItem.append(messageDiv);
+        chatList.append(chatItem);
+    });
+
+    chatHistory.append(chatList);
+    messageContainer.append(chatHistory);
+
     }
      // Submit form handler
      $('form').submit(function(event) {
@@ -279,10 +443,11 @@
 
     // Periodically check for updates every second
 
-
-
-
-    setInterval(checkForUpdates, 4000);
+        setInterval(checkForUpdates, 4000);
+        setInterval(function() {
+            $('.chat-list').load(location.href+' .chat-list');
+            // $("#tablerow").load(location.href+' #tablerow');
+        },15000);
     });
 </script>
 
