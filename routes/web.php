@@ -10,13 +10,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/message', [MessageController::class, 'index'])->name('message');
-
-
-// Route::post('message/store',[MessageController::class, 'store'])->name('store');
-// Route::get('/messages/fetch', [MessageController::class, 'fetchMessages'])->name('messages.fetch');
-Route::middleware(['auth'])->group(function () {
-    Route::get('/chat', [MessageController::class, 'index'])->name('chat');
-    Route::post('/messages', [MessageController::class, 'store']);
-});
+Route::get('/home', [MessageController::class, 'index'])->name('home');
+Route::post('/chat/store', [MessageController::class, 'store'])->name('chat.store');
+Route::get('/get/messages/{id}', [MessageController::class, 'getMessages'])->name('getMessages');
+Route::get('/get/count', [MessageController::class, 'getcount'])->name('getcount');

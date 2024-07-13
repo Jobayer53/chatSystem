@@ -3,50 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
-use App\Events\NewMessage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    // public function index(){
-    //     $messages = Message::all();
-    //     return view('index', ['messages' => $messages]);
-    // }
+    public function index(){
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'message' => 'required',
-    //     ]);
-    //     $message = new Message();
-    //     $message->message = $request->message;
-    //     $message->save();
-    //     return redirect('/message');
-    // }
-    // public function fetchMessages()
-    // {
-    //     $messages = Message::all();
-    //     return response()->json(['messages' => $messages]);
-    // }
-    public function index()
-    {
-        $messages = Message::with('user')->get();
-        return view('chat', compact('messages'));
+        $users = User::where('id', '!=', Auth::User()->id)->get();
+        return view('chat',[
+            'users' => $users,
+        ]);
     }
 
-    public function store(Request $request)
-    {
-        $message = Message::create([
-            'user_id' => Auth::user()->id,
-            'message' => $request->input('content'),
-        ]);
+    public function store(Request $request) {
+        $message = new Message();
+        $message->message = $request->message;
+        $message->sender_id = Auth::user()->id;
+        $message->receiver_id = $request->receiver_id;
+        $message->save();
+
+        // Fetch updated messages after sending
+        $messages = $this->getMessages($request->receiver_id);
+
+        return response()->json($messages);
+    }
 
 
-    $message->load('user'); // Ensure the user relation is loaded
+    public function getMessages($id) {
+        $messages = Message::where(function ($query) use ($id) {
+                $query->where('sender_id', Auth::user()->id)
+                      ->where('receiver_id', $id);
+            })
+            ->orWhere(function ($query) use ($id) {
+                $query->where('sender_id', $id)
+                      ->where('receiver_id', Auth::user()->id);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
 
-    broadcast(new NewMessage($message))->toOthers();
+        return $messages;
+    }
 
-    return response()->json($message);
+
+    public function getcount(){
+        $data = Message::where('receiver_id',  Auth::User()->id)->where('count', 1)->count();
+        return $data;
     }
 }
