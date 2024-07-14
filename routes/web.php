@@ -17,3 +17,5 @@ Route::post('/user/register', [HomeController::class, 'user_register'])->name('u
 Route::post('/chat/store', [MessageController::class, 'store'])->name('chat.store');
 Route::get('/get/messages/{id}', [MessageController::class, 'getMessages'])->name('getMessages');
 Route::get('/get/count', [MessageController::class, 'getcount'])->name('getcount');
+Route::get('/reset/count/{receiver_id}', [MessageController::class, 'resetCount'])->name('resetCount');
+

@@ -14,6 +14,7 @@
         }
         .convo{
             border:1px solid #ddd;
+            border-radius: 0 0 7px 7px;
         }
         .user{
             cursor: pointer;
@@ -29,6 +30,7 @@
         }
         #plist{
             border:1px solid #ddd;
+            border-radius: 0  0 7px 7px;
         }
         .left-message{
             background-color: #ddd !important;
@@ -40,29 +42,23 @@
             overflow-y: auto;
         }
 
-/* Customize scrollbar for webkit browsers (Chrome, Safari) */
+/* Custom scrollbar for WebKit */
 .chat-style::-webkit-scrollbar {
-    width: 2px !important; /* Adjust the width to make it slim */
-}
+    width: 4px; /* Set scrollbar width */
+    /* height: 8px; Set scrollbar height */
 
-.chat-style::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Background color of the track */
-}
 
+}
 .chat-style::-webkit-scrollbar-thumb {
-    background: #888; /* Color of the scrollbar handle */
-    border-radius: 22px; /* Optional: round corners */
+    background-color: #409fff; /* Set scrollbar handle color */
 }
-
-.chat-style::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Color when hovered */
+.chat-style::-webkit-scrollbar-track {
+    background-color: #fff; /* Set scrollbar track color */
 }
-
-/* Customize scrollbar for Firefox */
-.chat-style {
-    scrollbar-width: thin; /* Make the scrollbar slim */
-    scrollbar-color: #ddd #fff; /* Handle color, track color */
-}
+/* .chat-style {
+    scrollbar-width: thin;
+    scrollbar-color: #409fff #fff;
+} */
         .scroll {
         flex: 1;
         overflow-y: auto;
@@ -140,66 +136,15 @@
             </div>
         </nav>
     </div>
-    {{-- <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-2">
-                    <ul>
-                        @foreach ($users as  $data)
-                            <li class="user" data-id="{{ $data->id }}" > {{ $data->name }} </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col-lg-10">
-                    <div class="card convo hide">
-                        <div class="card-header">
-                            <h5 class="name"></h5>
 
-                        </div>
-                        <div class="card-body">
-                            <div class="flex flex-col  ">
-                                <div class="bg-white shadow rounded-b-lg p-4">
-
-                                    <div class="flex flex-col space-y-4 scroll" style="height: 300px; overflow-y: auto" >
-
-                                            <div class="flex items-center">
-                                                <div class="flex flex-col">
-                                                    <span class="font-bold  "></span>
-                                                </div>
-                                            </div>
-
-                                                <div id="message-container" style="flex: 1; overflow-y: auto;"></div>
-
-                                    </div>
-
-                                    <form id="message-form" action="{{ route('chat.store') }}" method="post" class="mt-4">
-                                        @csrf
-                                        <input type="text" name="message" id="message" class=" px-4 py-2 border rounded-lg" placeholder="Type a message..." style="width: 91%">
-                                        <input type="hidden" name="receiver_id" id="receiver_id">
-                                        <button type="submit" id="send-message" class="px-4 py-2 btn btn-dark text-white ">Send</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div> --}}
 
 <div class="container">
 <div class="row clearfix">
-    <div class="col-lg-12">
+    <div class="col-lg-12 ">
         <div class="card chat-app" style="border:none; box-shadow:none;">
             <div id="plist" class="people-list">
-                <div class="input-group">
+                <div class="input-group" style="margin: 9.8px;">
                     Tap to chat
-                    {{-- <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Search..."> --}}
                 </div>
                 <div class="chat-style">
 
@@ -215,21 +160,18 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" style=" fill: #f77d92;"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/></svg>
                                     @endif
                                 </i></div>
-                                <div class="name">{{ $data->name }}</div>
-                                {{-- <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div> --}}
+                                <div class="name">{{ $data->name }} </div>
+
+                                    @foreach($data->receivemessages->where('count', 1)->unique('receiver_id') as $message)
+                                @if($message->receiver_id == Auth::user()->id)
+                                <div class="text-primary ms-2 "><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="height: 5px; width: 5px; fill:#168AFF"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z"/></svg> </div>
+                                @endif
+                                @endforeach
                             </div>
                         </li>
                         @endforeach
 
-                    {{-- <li class="clearfix user female" data-id="{{ $data->id }}" style="" >
-                            <div class="about d-flex align-items-baseline">
-                                <div class="me-2"><i class="" style="height: 15px; width: 15px; display:inherit">
 
-                                </i></div>
-                                <div class="name">{{ $data->name }}</div>
-
-                            </div>
-                        </li> --}}
 
                     </ul>
                 </div>
@@ -252,49 +194,28 @@
                             </div>
                             <div class="col-lg-6 hidden-sm text-right">
                                 <span class="float-end cross">
-                                    <i style="display: inherit;height: 20px; width: 20px;margin-top: 9px;">
+                                    <i class="cross-style" >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                     </i>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="chat-history">
-                        <ul class="m-b-0">
-                            <li class="clearfix" >
-                                <div class="message other-message float-right" style="max-width:60%;"> Hi Aiden, how are you? How is the project coming along? Hi Aiden, how are you? How is the project coming along? </div>
-                            </li>
 
-                            <li class="clearfix">
-
-                                <div class="message my-message left-message" style="width:60%;">Project has been already finished and I have results to show you.</div>
-                            </li>
-                            <li class="clearfix">
-
-                                <div class="message other-message float-right" style="max-width:60%;"> Hi Aiden, how are you?  </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="chat-message clearfix">
-                        <div class="input-group mb-0">
-                            <input type="text" class="form-control" placeholder="Enter text here...">
-                            <button class="btn btn-primary" type="button"> Send</button>
-                        </div>
-                    </div> --}}
                     <div id="chat-interface" class="d-flex flex-column" style="height: 68vh;">
                         <div id="message-container" class="flex-1 overflow-y-auto"></div>
                         <div class="chat-message clearfix">
-                            <div style="bottom: 0; position: absolute;width: 73%;">
+                            <div  class="input-style">
 
 
 
                                 <form id="message-form" action="{{ route('chat.store') }}" method="post" class="mt-4">
                                     @csrf
-                                <div class="input-group mb-0">
+                                <div class="input-group mb-0" >
                                         <input type="hidden" name="receiver_id" id="receiver_id">
 
-                                        <input type="text" name="message" class="form-control" placeholder="Enter text here...">
-                                        <button class="btn btn-primary" type="submit"> Send</button>
+                                        <input type="text" name="message" class="form-control" placeholder="what's up?" style="border-radius:0 0 0  7px !important;">
+                                        <button class="btn btn-primary" type="submit" style="border-radius: 0px 0px 5px 0px;"> Send</button>
                                     </div>
                                 </form>
                             </div>
@@ -341,9 +262,8 @@
                 url: `/get/messages/${id}`,
                 data:id,
                 success: function(response) {
-                   console.log(response);
-                   displayMessages(response);
-                   $('#age').val(response.age);
+                    displayMessages(response);
+                    resetMessageCount(id);
 
                 }
 
@@ -351,34 +271,7 @@
             });
         });
 
-        // function displayMessages(response) {
-        //     let messageContainer = $('#message-container');
-        //     messageContainer.empty(); // Clear previous messages
 
-        //     response.forEach(function(item) {
-        //         let messageDiv = $('<div></div>').addClass('flex items-center');
-        //         let messageContent = `
-        //             <div class="flex flex-col
-        //              `+ (item.sender_id == auth ? 'float-end' : '')  +`">
-        //              <span class="font-bold name
-
-        //              ">
-        //              `+
-        //              (item.sender_id == auth ? 'You' : name)
-        //              + `
-
-        //              :
-        //                     </span> <!-- Replace with actual user name if available -->
-        //                 <span class="message
-
-        //                 ">${item.message}</span>
-        //             </div>
-        //             <br>
-        //         `;
-        //         messageDiv.html(messageContent);
-        //         messageContainer.append(messageDiv);
-        //     });
-        // }
         function displayMessages(response) {
     let messageContainer = $('#message-container');
     messageContainer.empty(); // Clear previous messages
@@ -411,14 +304,17 @@
 
     // Function to fetch messages
     function fetchMessages(id) {
+
         $.ajax({
             type: "GET",
             url: `/get/messages/${id}`,
             success: function(response) {
                 displayMessages(response);
+                resetMessageCount(id);
             }
         });
     }
+
 
     // Function to display messages
     function displayMessages(messages) {
@@ -495,34 +391,26 @@
             $('.chat-list').load(location.href+' .chat-list');
             // $("#tablerow").load(location.href+' #tablerow');
         },15000);
+
+        function resetMessageCount(receiver_id) {
+    $.ajax({
+        url: `/reset/count/${receiver_id}`,
+        type: "GET",
+        success: function(response) {
+            if(response.status === 'success') {
+                // Update the UI to reflect the count reset
+                $('.count').text(''); // Clear count or update as needed
+            }
+        }
+    });
+}
+
+
+
+
     });
 </script>
 
-{{-- <script>
-    $(document).ready(function() {
-        $('#send-message').click(function(e) {
-            e.preventDefault(); // Prevent default form submission
-
-            // Fetch form data
-            var formData = $('#message-form').serialize();
-
-            // Send AJAX request
-            $.ajax({
-                url: "{{ route('chat.store') }}",
-                type: "POST",
-                data: formData,
-                success: function(response) {
-                  $('#message').val('');
-                },
-                error: function(xhr, status, error) {
-                    // Handle error response (if any)
-                    console.error('Error:', error);
-                    // Optionally, you can show an error message to the user
-                }
-            });
-        });
-    });
-</script> --}}
 
 
 </html>

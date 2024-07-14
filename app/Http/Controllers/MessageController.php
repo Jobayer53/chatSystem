@@ -22,6 +22,7 @@ class MessageController extends Controller
         $message->message = $request->message;
         $message->sender_id = Auth::user()->id;
         $message->receiver_id = $request->receiver_id;
+        $message->count = 1;
         $message->save();
 
         // Fetch updated messages after sending
@@ -42,7 +43,7 @@ class MessageController extends Controller
             })
             ->orderBy('created_at', 'asc')
             ->get();
-            
+
         return $messages;
     }
 
@@ -50,5 +51,12 @@ class MessageController extends Controller
     public function getcount(){
         $data = Message::where('receiver_id',  Auth::User()->id)->where('count', 1)->count();
         return $data;
+    }
+    public function resetCount($receiver_id) {
+        Message::where('receiver_id', Auth::user()->id)
+               ->where('sender_id', $receiver_id)
+               ->update(['count' => 0]);
+
+        return response()->json(['status' => 'success']);
     }
 }
