@@ -1,0 +1,61 @@
+body{
+    background-color: #FFFCEF !important;
+}
+.card {
+    background-color: transparent !important;
+    margin-top: 100px;
+}
+
+.card-header{
+    background-color: transparent !important;
+}
+select{
+    border: none !important;
+    border-bottom: 1px solid #ced4da !important;
+}
+input , select{
+ background-color: transparent !important;
+}
+input:focus{
+    /* border-radius: none !important; */
+    border: none !important;
+    border-bottom: 1px solid black !important;
+    box-shadow: none !important;
+}
+select:focus{
+    /* border-radius: none !important; */
+    border-bottom: 1px solid black !important;
+    box-shadow: none !important;
+}
+
+.form-group-typ {
+    position: relative;
+  }
+  .form-control-typ {
+    border: none;
+    border-bottom: 1px solid #ced4da; /* Add border only at the bottom */
+    border-radius: 0; /* No rounded border */
+    padding-top: 1.5rem; /* Add space for label */
+
+  }
+  .form-label-typ {
+    position: absolute;
+    top: 28%;
+    left: 1rem;
+    pointer-events: none;
+    transition: all 0.2s;
+    color: #6c757d;
+  }
+  .form-control-typ:focus,
+  .form-control-typ:not(:placeholder-shown) {
+    outline: none; /* Remove the blue focus border */
+    box-shadow: none; /* Remove any box shadow */
+  }
+  .form-control-typ:focus ~ .form-label-typ,
+  .form-control-typ:not(:placeholder-shown) ~ .form-label-typ {
+    font-size: 0.75rem;
+    top: -0.1rem;
+    left: 0.7rem;
+    color: black;
+
+  }

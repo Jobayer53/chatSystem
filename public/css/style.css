@@ -1,8 +1,12 @@
 body{
-    background-color: #f4f7f6;
+    background-color: #FFFCEF !important;
     margin-top:20px;
     height: auto;
 
+}
+
+.convo{
+    background-color: #F7F7F7;
 }
 .card {
     background: #fff;
@@ -20,7 +24,7 @@ body{
     position: absolute;
     left: 0;
     top: 0;
-    padding: 10px 10px 10px 10px;
+    padding: 10px 6px 11px 10px;
     z-index: 7
 }
 
@@ -77,7 +81,7 @@ body{
 
 .chat .chat-header {
     padding: 15px 20px;
-    border-bottom: 2px solid #f4f7f6
+    border-bottom: 1px solid #606470
 }
 
 .chat .chat-header img {
@@ -93,7 +97,7 @@ body{
 
 .chat .chat-history {
     padding: 20px;
-    border-bottom: 2px solid #fff
+    /* border-bottom: 2px solid #fff */
 }
 
 .chat .chat-history ul {
@@ -106,7 +110,7 @@ body{
 }
 
 .chat .chat-history ul li:last-child {
-    margin-bottom: 0px
+    margin-bottom: 30px
 }
 
 .chat .chat-history .message-data {
@@ -166,7 +170,7 @@ body{
 } */
 
 .chat .chat-history .other-message {
-    background: #168AFF;
+    background: #2fc0ff;
     text-align: right
 }
 
@@ -291,7 +295,7 @@ input:focus
     box-shadow: none !important;
     border: 1px solid #ddd !important;
     /* border-radius: 0 !important; */
-    border-bottom: 1px solid #168AFF !important;
+    border-bottom: 1px solid #606470 !important;
 }
 .cross-style{
     display: inherit;
@@ -308,8 +312,105 @@ input:focus
 
 }
 #message-container::-webkit-scrollbar-thumb {
-    background-color: #409fff; /* Set scrollbar handle color */
+    background-color: #606470; /* Set scrollbar handle color */
 }
 #message-container::-webkit-scrollbar-track {
     background-color: #fff; /* Set scrollbar track color */
+}
+.send-button{
+    background-color: #2fc0ff !important;
+    border: 1px solid #2fc0ff !important;
+    border-radius: 0px 0px 5px 0px !important;
+}
+.hide {
+    display: none;
+}
+.convo{
+    border:1px solid #ddd;
+    border-radius: 0 0 7px 7px;
+    z-index: 44;
+}
+.user{
+    cursor: pointer;
+}
+.cross{
+    cursor: pointer;
+}
+.female{
+    background-color: #ffe9ed;
+}
+.female:hover{
+    background-color: #f7c4d5 !important ;
+}
+#plist{
+    /* border:1px solid #ddd; */
+    border-radius: 0  0 7px 7px;
+    background-color: #F7F7F7 !important;
+}
+
+.list-shadow{
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+.listClick-shadow{
+    box-shadow :-12px 0.5rem 1rem -10px rgba(0, 0, 0, 0.15);
+}
+.chatClick-shadow{
+    box-shadow :12px 0.5rem 1rem -10px rgba(0, 0, 0, 0.15);
+}
+.left-message{
+    background-color: #ddd !important;
+    color:black !important;
+    border-radius: 15px 15px 15px 0px !important;
+}
+.chat-style{
+    height: 71.8vh;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for WebKit */
+.chat-style::-webkit-scrollbar {
+width: 4px; /* Set scrollbar width */
+/* height: 8px; Set scrollbar height */
+
+
+}
+.chat-style::-webkit-scrollbar-thumb {
+background-color: #606470; /* Set scrollbar handle color */
+}
+.chat-style::-webkit-scrollbar-track {
+background-color: #F7F7F7; /* Set scrollbar track color */
+}
+/* .chat-style {
+scrollbar-width: thin;
+scrollbar-color: #409fff #fff;
+} */
+.scroll {
+flex: 1;
+overflow-y: auto;
+padding-bottom: 20px; /* Add padding if necessary */
+}
+
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.scroll::-webkit-scrollbar {
+width: 0; /* Remove scrollbar space */
+}
+
+/* Hide scrollbar for Firefox */
+.scroll {
+scrollbar-width: none; /* Firefox */
+}
+.text-colour{
+    color: #323643 !important;
+}
+.welcome
+{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    margin-left: 135px ;
+}
+.inbox
+{
+    cursor: pointer;
 }

@@ -6,74 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> --}}
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <style>
-        .hide {
-            display: none;
-        }
-        .convo{
-            border:1px solid #ddd;
-            border-radius: 0 0 7px 7px;
-        }
-        .user{
-            cursor: pointer;
-        }
-        .cross{
-            cursor: pointer;
-        }
-        .female{
-            background-color: #ffe9ed;
-        }
-        .female:hover{
-            background-color: #f7c4d5 !important ;
-        }
-        #plist{
-            border:1px solid #ddd;
-            border-radius: 0  0 7px 7px;
-        }
-        .left-message{
-            background-color: #ddd !important;
-            color:black !important;
-            border-radius: 15px 15px 15px 0px !important;
-        }
-        .chat-style{
-            height: 71.8vh;
-            overflow-y: auto;
-        }
 
-/* Custom scrollbar for WebKit */
-.chat-style::-webkit-scrollbar {
-    width: 4px; /* Set scrollbar width */
-    /* height: 8px; Set scrollbar height */
-
-
-}
-.chat-style::-webkit-scrollbar-thumb {
-    background-color: #409fff; /* Set scrollbar handle color */
-}
-.chat-style::-webkit-scrollbar-track {
-    background-color: #fff; /* Set scrollbar track color */
-}
-/* .chat-style {
-    scrollbar-width: thin;
-    scrollbar-color: #409fff #fff;
-} */
-        .scroll {
-        flex: 1;
-        overflow-y: auto;
-        padding-bottom: 20px; /* Add padding if necessary */
-    }
-
-    /* Hide scrollbar for Chrome, Safari, and Edge */
-    .scroll::-webkit-scrollbar {
-        width: 0; /* Remove scrollbar space */
-    }
-
-    /* Hide scrollbar for Firefox */
-    .scroll {
-        scrollbar-width: none; /* Firefox */
-    }
     </style>
 </head>
 
@@ -110,8 +46,19 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Inbox <span class="count badge rounded-pill bg-danger"></span></a>
+                        <li class="nav-item dropdown">
+                            <span class="inbox nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre >Inbox <span class="count badge rounded-pill bg-danger"></span></span>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
                           </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -142,9 +89,10 @@
 <div class="row clearfix">
     <div class="col-lg-12 ">
         <div class="card chat-app" style="border:none; box-shadow:none;">
-            <div id="plist" class="people-list">
-                <div class="input-group" style="margin: 9.8px;">
-                    Tap to chat
+            <div id="plist" class="people-list list-shadow">
+                {{-- <span class="count badge rounded-pill bg-danger"></span> --}}
+                <div class="input-group" style="margin: 9.8px; color:#606470">
+
                 </div>
                 <div class="chat-style">
 
@@ -176,20 +124,26 @@
                     </ul>
                 </div>
             </div>
+            <div class="welcome ">
+                <h5>Welcome to Disting Disting....</h5>
+                <p style="color:#323643">Tap to chat</p>
+            </div>
+
             <div class="chat ">
+
                 <div class=" convo hide">
                     <div class="chat-header clearfix ">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="d-flex" style="padding-left: 10px;">
 
-                                    <h5 class="m-b-0 username"> </h5>
+                                    <h5 class="m-b-0 username text-colour"> </h5>
                                     <span class="svg"></span>
                                 </div>
-                                <div class="chat-about">
+                                <div class="chat-about" style="color:#606470">
                                     <span id="age"  style="font-size:13px;"></span>,
                                     <span id="country" style="font-size:13px;"></span>
-                                    <small></small>
+
                                 </div>
                             </div>
                             <div class="col-lg-6 hidden-sm text-right">
@@ -214,8 +168,8 @@
                                 <div class="input-group mb-0" >
                                         <input type="hidden" name="receiver_id" id="receiver_id">
 
-                                        <input type="text" name="message" class="form-control" placeholder="what's up?" style="border-radius:0 0 0  7px !important;">
-                                        <button class="btn btn-primary" type="submit" style="border-radius: 0px 0px 5px 0px;"> Send</button>
+                                        <input type="text" name="message" class="form-control" placeholder="what's up?" style="border-radius:0 0 0  7px !important; background-color:#F7F7F7">
+                                        <button class="send-button btn btn-primary" type="submit" > Send</button>
                                     </div>
                                 </form>
                             </div>
@@ -231,9 +185,11 @@
 </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script>
      let name ='' ;
      let auth = '{{ Auth::user()->id }}';
@@ -256,6 +212,11 @@
             let id = $(this).data('id');
             $('.username').text(name);
             $('#receiver_id').val(id);
+            $('#plist').removeClass('list-shadow');
+            $('#plist').addClass('listClick-shadow');
+            $('.convo').addClass('chatClick-shadow');
+            $('.welcome').addClass('d-none');
+            $('.inboxlist').addClass('hide');
 
             $.ajax({
                 type: "GET",
@@ -272,32 +233,35 @@
         });
 
 
-        function displayMessages(response) {
-    let messageContainer = $('#message-container');
-    messageContainer.empty(); // Clear previous messages
+        // function displayMessages(response) {
+        //     let messageContainer = $('#message-container');
+        //     messageContainer.empty(); // Clear previous messages
 
-    let chatHistory = $('<div></div>').addClass('chat-history');
-    let chatList = $('<ul></ul>').addClass('m-b-0');
+        //     let chatHistory = $('<div></div>').addClass('chat-history');
+        //     let chatList = $('<ul></ul>').addClass('m-b-0');
 
-    response.forEach(function(item) {
-        let chatItem = $('<li></li>').addClass('clearfix');
-        let messageDiv = $('<div></div>').addClass('message');
+        //     response.forEach(function(item) {
+        //         let chatItem = $('<li></li>').addClass('clearfix');
+        //         let messageDiv = $('<div></div>').addClass('message');
 
-        if (item.sender_id == auth) {
-            messageDiv.addClass('other-message float-right').css('max-width', '60%').text(item.message);
-        } else {
-            messageDiv.addClass('my-message left-message').css('max-width', '60%').text(item.message);
-        }
+        //         if (item.sender_id == auth) {
+        //             messageDiv.addClass('other-message float-right').css('max-width', '60%').text(item.message);
+        //         } else {
+        //             messageDiv.addClass('my-message left-message').css('max-width', '60%').text(item.message);
+        //         }
 
-        chatItem.append(messageDiv);
-        chatList.append(chatItem);
-    });
+        //         chatItem.append(messageDiv);
+        //         chatList.append(chatItem);
+        //     });
 
-    chatHistory.append(chatList);
-    messageContainer.append(chatHistory);
-}
+        //     chatHistory.append(chatList);
+        //     messageContainer.append(chatHistory);
+        // }
         $(document).on('click', '.cross', function() {
             $('.convo').addClass('hide');
+            $('#plist').removeClass('listClick-shadow');
+            $('#plist').addClass('list-shadow');
+            $('.welcome').removeClass('d-none');
         });
 
         let lastCount = 0;
@@ -386,11 +350,11 @@
 
     // Periodically check for updates every second
 
-        setInterval(checkForUpdates, 4000);
-        setInterval(function() {
-            $('.chat-list').load(location.href+' .chat-list');
-            // $("#tablerow").load(location.href+' #tablerow');
-        },15000);
+        // setInterval(checkForUpdates, 10000);
+        // setInterval(function() {
+        //     $('.chat-list').load(location.href+' .chat-list');
+        //     // $("#tablerow").load(location.href+' #tablerow');
+        // },15000);
 
         function resetMessageCount(receiver_id) {
     $.ajax({
@@ -405,7 +369,12 @@
     });
 }
 
+    $('.inbox').on('click', function() {
+        $('.welcome').addClass('d-none');
+        $('.inboxlist').removeClass('hide');
+        $('.convo').addClass('hide');
 
+    });
 
 
     });
